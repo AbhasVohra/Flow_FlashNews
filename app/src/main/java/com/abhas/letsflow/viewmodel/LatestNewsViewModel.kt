@@ -3,7 +3,10 @@ package com.abhas.letsflow.viewmodel
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flow
+import kotlin.random.Random
 
 class LatestNewsViewModel: ViewModel() {
 
@@ -15,5 +18,12 @@ class LatestNewsViewModel: ViewModel() {
             emit(s)
             delay(refreshInterval)
         }
+    }
+
+    private val _stateFlow = MutableStateFlow("Click Random News, to get one.")
+    var stateFlow = _stateFlow.asStateFlow()
+
+    fun randomNews() {
+        _stateFlow.value = newsList[Random.nextInt(0, 4)]
     }
 }
